@@ -9,7 +9,7 @@ public class TestPage extends Base_test {
 	
 	@Test
 	public void menusLink() throws InterruptedException {
-		
+		//mailLink
 		MenuLink ml= new MenuLink(driver);
 		
 		ml.buyLink();
