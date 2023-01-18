@@ -8,9 +8,9 @@ import org.testng.annotations.Parameters;
 
 
 import utility.TestUtil;
-import io.github.bonigarcia.wdm.WebDriverManager;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class Base_test
+public class Base_test extends TestUtil
 {
 	public static WebDriver driver = null;
 	public static WebDriverWait wait;
@@ -24,7 +24,8 @@ public class Base_test
 			 driver = new ChromeDriver(); 
 			 System.out.println("Testing on Chrome");
 		 }
-		 driver.get("https://isaenergy.com.au/");
+//		 driver.get("https://isaenergy.com.au/");
+		 driver.get(TestUtil.getPropertiesData("url"));
 		 driver.manage().window().maximize();
 		 Thread.sleep(2000);
 }

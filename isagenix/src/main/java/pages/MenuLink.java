@@ -84,103 +84,153 @@ public class MenuLink extends TestUtil {
 	}
 	
 
-	public void buyLink() throws InterruptedException {
+	public boolean buyLink() throws InterruptedException {
+		boolean status = false;
+		try {
+			Actions act = new Actions(driver);
+			
+			//Performing the mouse hover action on the target element.
+			buy.isDisplayed();
+			act.moveToElement(buy).perform();
+			Isagenix_Packs.isDisplayed();
+			act.moveToElement(Isagenix_Packs).perform();
+			Weight_Loss.isDisplayed();
+			act.moveToElement(Weight_Loss).perform();
+//			act.moveToElement(_30Day).perform();
+			_30Day.click();
+			
+//			buy.click();
+			Thread.sleep(2000);
+			status = true;
+		}catch(Exception e){
+			System.out.println(e);
+		}
 		
-		Actions act = new Actions(driver);
-		
-		//Performing the mouse hover action on the target element.
-		buy.isDisplayed();
-		act.moveToElement(buy).perform();
-		Isagenix_Packs.isDisplayed();
-		act.moveToElement(Isagenix_Packs).perform();
-		Weight_Loss.isDisplayed();
-		act.moveToElement(Weight_Loss).perform();
-//		act.moveToElement(_30Day).perform();
-		_30Day.click();
-		
-//		buy.click();
-		Thread.sleep(2000);
+		return status;
 	}
 	
-	public void scroll1() {
-		TestUtil.scrollElements(driver, scrl_to_buy_now);
+	public boolean scroll1() {
+		boolean status = false;
+		try {
+			TestUtil.scrollElements(driver, scrl_to_buy_now);
+			status = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
 	}
 	
-	public void buyNow() {
+	public boolean buyNow() {
+		boolean status = false;
 //		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 //		wait.until(ExpectedConditions.visibilityOf(buy_now));
+		try {
 		TestUtil.explicitWait(driver, buy_now);
 		buy_now.click();
+		status = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
 	}
 	 
 	
 	
-	public void newTab()
+	public boolean newTab()
 	{
-		 Set<String> windowTabAddress = driver.getWindowHandles();
-		 
-		for(String x : windowTabAddress) {
-			driver.switchTo().window(x);
-			String newUrl = driver.getCurrentUrl();
-			
-			 System.out.println(newUrl);
-			 
-//			if(newUrl.contains("Isagenix 30 Day System ")) {
-//				
-//				System.out.println("hello");
-////				TestUtil.scrollElements(driver, scrl_to_buy_now1);
-//			}
-			
-		}
-		
-		
-	}
-	
-	public void closepupUp()
-	{
+		boolean status = false;
 		try {
-			pupUp.click();	
+			 Set<String> windowTabAddress = driver.getWindowHandles();
+			 
+				for(String x : windowTabAddress) {
+					driver.switchTo().window(x);
+					String newUrl = driver.getCurrentUrl();
+					
+					 System.out.println(newUrl);
+					 
+//					if(newUrl.contains("Isagenix 30 Day System ")) {
+//						
+//						System.out.println("hello");
+////						TestUtil.scrollElements(driver, scrl_to_buy_now1);
+//					}
+					status = true;
+				}
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		return status;
 		
 	}
 	
-	public void buyNow1() {
+	public boolean closepupUp()
+	{
+		boolean status = false;
+		try {
+			pupUp.click();
+			status = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
+	}
+	
+	public boolean buyNow1() {
 //		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 //		wait.until(ExpectedConditions.visibilityOf(buy_now1));
-		TestUtil.explicitWait(driver, buy_now1);
-		buy_now1.click();
-		
-		Set<String> windowTabAddress = driver.getWindowHandles();
-		 
-		for(String x : windowTabAddress) {
-			driver.switchTo().window(x);
-			String prodTitle = driver.getTitle();
+		boolean status = false;
+		try {
+			TestUtil.explicitWait(driver, buy_now1);
+			buy_now1.click();
 			
-//			 System.out.println(newTitle);
+			Set<String> windowTabAddress = driver.getWindowHandles();
 			 
-			if(prodTitle.contains("Product Details")) {
-				TestUtil.scrollElements(driver, scrl_prod_details);
+			for(String x : windowTabAddress) {
+				driver.switchTo().window(x);
+				String prodTitle = driver.getTitle();
+				
+//				 System.out.println(newTitle);
+				 
+				if(prodTitle.contains("Product Details")) {
+					TestUtil.scrollElements(driver, scrl_prod_details);
+				}
+				
 			}
-			
+			status = true;
+		}catch(Exception e) {
+			System.out.println(e);
 		}
-		
+		return status;
 	}
-	public void BuildForMe(){
-		build4me.click();
+	
+	
+	public boolean BuildForMe(){
+		boolean status = false;
+		try {
+			build4me.click();
+			status = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
 	}
 
-	public void addToCart() {
-//		System.out.println("test-addToCart");
-		TestUtil.scrollElements(driver, canister);
-		TestUtil.scrollElements(driver, select_cleanse);
-		TestUtil.scrollElements(driver, Cinnamon_Roll);
-		TestUtil.scrollElements(driver, natural_fruit);
-//	System.out.println("scroll-end");
-		addCart.click();
-//		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(8));
-//		wait.until(ExpectedConditions.visibilityOf(continueSignUp));
+	public boolean addToCart() {
+		boolean status = false;
+		try {
+//			System.out.println("test-addToCart");
+			TestUtil.scrollElements(driver, canister);
+			TestUtil.scrollElements(driver, select_cleanse);
+			TestUtil.scrollElements(driver, Cinnamon_Roll);
+			TestUtil.scrollElements(driver, natural_fruit);
+			System.out.println("scroll-end");
+			addCart.click();
+			status = true;
+//			WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(8));
+//			wait.until(ExpectedConditions.visibilityOf(continueSignUp));
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return status;
 	}
 
 
