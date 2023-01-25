@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.time.Duration;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,6 +41,16 @@ public class TestUtil {
 	public static void scrollElements(WebDriver driver,WebElement element ) {
 		js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	public static void isElementVisible(WebDriver driver,WebElement element,String msg) {
+		TestUtil.explicitWait(driver, element);
+		element.isDisplayed();
+		TestUtil.log().info(msg);
+	}
+	
+	public static Logger log()
+	{
+		return LogManager.getLogger(Thread.currentThread().getStackTrace()[2].getClassName());
 	}
 	
 }

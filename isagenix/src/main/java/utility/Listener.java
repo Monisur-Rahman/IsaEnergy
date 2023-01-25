@@ -12,19 +12,26 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 //import Utilities.Base_test;
 
-public class Listener implements ITestListener {
+public class Listener extends ExtentReport implements ITestListener {
 
-//	public void onTestStart(ITestResult result) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	public void onTestSuccess(ITestResult result) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	public void onTestStart(ITestResult result) {
+		test = extent.createTest(result.getMethod().getDescription());
+		System.out.println("test : "+test);
+	}
+
+	public void onTestSuccess(ITestResult result)
+	{
+		if(result.getStatus() == ITestResult.SUCCESS)
+		{
+			test.log(Status.PASS,"Passed test case is: "+ result.getName());
+		}
+	}
 
 	public void onTestFailure(ITestResult result) {
 		
@@ -47,13 +54,35 @@ public class Listener implements ITestListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        //Copy file at destination														
+        if (result.getStatus() == ITestResult.FAILURE) 
+		{
+			try {
+				test.log(Status.FAIL,
+						MarkupHelper.createLabel(result.getName() + " - Test Case Failed", ExtentColor.RED));
+				test.log(Status.FAIL,
+						MarkupHelper.createLabel(result.getThrowable() + " - Test Case Failed", ExtentColor.RED));
+				
+				test.addScreenCaptureFromPath(System.getProperty("user.dir")+"/ScreenShot/"+formatter.format(timestamp) +"_Failed.png");
+				 
+				//test.log(Status.FAIL, (Markup) test.addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshots/"+result.getName()+" Failed"+".png"));
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	
 	}
 
-//	public void onTestSkipped(ITestResult result) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	public void onTestSkipped(ITestResult result)
+	{
+		if(result.getStatus() == ITestResult.SKIP)
+		{
+			test.log(Status.SKIP,"Skipped test case is: "+ result.getName());
+		}
+	}
 //
 //	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 //		// TODO Auto-generated method stub

@@ -1,14 +1,16 @@
 package testCase;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import pages.MenuLink;
 import utility.Base_test;
+@Listeners(utility.Listener.class)
 
 public class TestPage extends Base_test {
 	
-	@Test
+	@Test(description = "isaEnergy")
 	public void menusLink() throws InterruptedException {
 		
 		MenuLink abc= new MenuLink(driver);
@@ -34,9 +36,14 @@ public class TestPage extends Base_test {
 		boolean clickBuild4me = abc.BuildForMe();
 		Assert.assertEquals(true, clickBuild4me, "Failed to clickBuild4me");
 		
-		boolean clickAddToCart = abc.addToCart();
+		boolean scrollAddToCart = abc.scrollAddToCart();
+		Assert.assertEquals(true, scrollAddToCart, "Failed to scrollAddToCart");
+		
+		boolean clickAddToCart = abc.addtocart();
 		Assert.assertEquals(true, clickAddToCart, "Failed to clickAddToCart");
 		
+		boolean clickSignUp = abc.signUp();
+		Assert.assertEquals(true, clickSignUp, "Failed to clickSignUp");
 	}
 	
 }

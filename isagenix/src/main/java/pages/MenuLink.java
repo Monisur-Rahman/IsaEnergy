@@ -1,16 +1,12 @@
 package pages;
 
-import java.time.Duration;
 import java.util.Set;
 
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.TestUtil;
 
@@ -38,7 +34,7 @@ public class MenuLink extends TestUtil {
 	private WebElement buy_now;
 	
 	@FindBy(xpath="//div[@id=\"onetrust-close-btn-container\"]")
-	private WebElement pupUp;
+	private WebElement popUp;
 	
 	
 	@FindBy(xpath="//span[contains(text(),'Subscription Rewards')]")
@@ -59,8 +55,11 @@ public class MenuLink extends TestUtil {
 	@FindBy(xpath="//div[contains(text(),'Canister (+$12.59 each)')]")
 	private WebElement canister;
 	
-	@FindBy(xpath="//div[contains(text(),'Select Cleanse for Life (Quantity: 2)')]")
-	private WebElement select_cleanse;
+	@FindBy(xpath="//div[text()='Strawberry Cream']")
+	public WebElement strawberry;
+	
+//	@FindBy(xpath="//div[contains(text(),'Select Cleanse for Life (Quantity: 2)')]")
+//	private WebElement select_cleanse;
 	
 	@FindBy(xpath="//div[text()='Plant-Based Snack Bites - Cinnamon Roll - 8ct (+$2.71 each)']")
 	private WebElement Cinnamon_Roll;
@@ -68,7 +67,8 @@ public class MenuLink extends TestUtil {
 	@FindBy(xpath="//div[text()='Natural Fruit Flavour']")
 	private WebElement natural_fruit;
 	
-	@FindBy(xpath="//button[@class='button expanded']")
+	@FindBy(xpath="//button[contains(text(),'Signup')]")
+	//button[contains(text(),'Continue Signup')]
 	private WebElement continueSignUp;
 	
 	
@@ -90,20 +90,23 @@ public class MenuLink extends TestUtil {
 			Actions act = new Actions(driver);
 			
 			//Performing the mouse hover action on the target element.
-			buy.isDisplayed();
+
+			TestUtil.isElementVisible(driver, buy, "buy element is Visible");
 			act.moveToElement(buy).perform();
-			Isagenix_Packs.isDisplayed();
+			TestUtil.log().info("Hover on Buy IsaGenix");
+			TestUtil.isElementVisible(driver, Isagenix_Packs, "Isagenix_Packs element is Visible");
 			act.moveToElement(Isagenix_Packs).perform();
-			Weight_Loss.isDisplayed();
+			TestUtil.log().info("Hover on IsaGenix Packs");
+			TestUtil.isElementVisible(driver, Weight_Loss, "Weight_Loss element is Visible");
 			act.moveToElement(Weight_Loss).perform();
-//			act.moveToElement(_30Day).perform();
+			TestUtil.log().info("Hover on Wieght Loss/Cleanse");
 			_30Day.click();
-			
-//			buy.click();
+			TestUtil.log().info("Click on 30Days Weight Loss System");
 			Thread.sleep(2000);
 			status = true;
 		}catch(Exception e){
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		
 		return status;
@@ -113,9 +116,11 @@ public class MenuLink extends TestUtil {
 		boolean status = false;
 		try {
 			TestUtil.scrollElements(driver, scrl_to_buy_now);
+			TestUtil.log().info("scroll to buy now");
 			status = true;
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
@@ -125,11 +130,14 @@ public class MenuLink extends TestUtil {
 //		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 //		wait.until(ExpectedConditions.visibilityOf(buy_now));
 		try {
-		TestUtil.explicitWait(driver, buy_now);
+//		TestUtil.explicitWait(driver, buy_now);
+		TestUtil.isElementVisible(driver, buy_now, "buy_now element is visible");	
 		buy_now.click();
+		TestUtil.log().info("click on buy_now");
 		status = true;
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
@@ -156,7 +164,8 @@ public class MenuLink extends TestUtil {
 					status = true;
 				}
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 		
@@ -166,10 +175,13 @@ public class MenuLink extends TestUtil {
 	{
 		boolean status = false;
 		try {
-			pupUp.click();
+			
+			popUp.click();
+			TestUtil.log().info("click on popUp");
 			status = true;
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
@@ -179,7 +191,8 @@ public class MenuLink extends TestUtil {
 //		wait.until(ExpectedConditions.visibilityOf(buy_now1));
 		boolean status = false;
 		try {
-			TestUtil.explicitWait(driver, buy_now1);
+//			TestUtil.explicitWait(driver, buy_now1);
+			TestUtil.isElementVisible(driver, buy_now1, "buy_now1 is visible");
 			buy_now1.click();
 			
 			Set<String> windowTabAddress = driver.getWindowHandles();
@@ -192,12 +205,14 @@ public class MenuLink extends TestUtil {
 				 
 				if(prodTitle.contains("Product Details")) {
 					TestUtil.scrollElements(driver, scrl_prod_details);
+					TestUtil.log().info("scroll to product details");
 				}
 				
 			}
 			status = true;
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
@@ -207,31 +222,64 @@ public class MenuLink extends TestUtil {
 		boolean status = false;
 		try {
 			build4me.click();
+			TestUtil.log().info("click on buildforme");
 			status = true;
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
-
-	public boolean addToCart() {
+ 
+	public boolean scrollAddToCart() {
 		boolean status = false;
 		try {
 //			System.out.println("test-addToCart");
 			TestUtil.scrollElements(driver, canister);
-			TestUtil.scrollElements(driver, select_cleanse);
+			TestUtil.log().info("scroll to canister");
+//			Thread.sleep(3000);
+			TestUtil.scrollElements(driver, strawberry);
+			TestUtil.log().info("scroll to strawberry");
+//			Thread.sleep(3000);
 			TestUtil.scrollElements(driver, Cinnamon_Roll);
+			TestUtil.log().info("scroll to cinnamon_Roll");
+//			Thread.sleep(3000);
 			TestUtil.scrollElements(driver, natural_fruit);
-			System.out.println("scroll-end");
-			addCart.click();
+			TestUtil.log().info("scroll to natural_fruit");
+			Thread.sleep(3000);
 			status = true;
-//			WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(8));
-//			wait.until(ExpectedConditions.visibilityOf(continueSignUp));
 		}catch(Exception e) {
-			System.out.println(e);
+//			System.out.println(e);
+			TestUtil.log().info(e);
+		}
+		return status;
+	}
+	
+	public boolean addtocart() {
+		boolean status = false;
+		try {
+			addCart.click();
+			TestUtil.log().info("click on add to Cart");
+			status = true;
+		}catch(Exception e) {
+//			System.out.println(e);
+			TestUtil.log().info(e);
 		}
 		return status;
 	}
 
+	public boolean signUp() {
+		boolean status = false;
+		try {
+			Thread.sleep(3000);
+			continueSignUp.click();
+			TestUtil.log().info("click on continueSignUp");
+			status = true;
+		}catch(Exception e) {
+//			System.out.println(e);
+			TestUtil.log().info(e);
+		}
+		return status;
+	}
 
 }
